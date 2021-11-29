@@ -110,3 +110,42 @@ else:
 span[i] <- i - stk.top()
 stk.push(i)
 return span
+
+
+Code : O(n)
+	
+#include <stack>
+
+int* stockSpan(int *price, int size)  {
+	// Write your code here
+    int *span = new int[size];
+    stack<int> s;
+    
+    
+    s.push(0);
+    span[0] = 1;
+    
+    for(int i =1; i < size; i++)
+    {
+        
+        while(!s.empty() && price[s.top()] < price[i])
+        {
+            s.pop();
+        }
+        
+        if(s.empty())
+        {
+            span[i] = i + 1;
+        }
+        else
+        {
+            span[i] = i - s.top();
+        }
+        
+        s.push(i);
+        
+    }
+    
+    return span;
+    
+}
